@@ -3,60 +3,125 @@ package io.altar.jseproject.utils;
 import java.util.Scanner;
 
 public class ScannerUtils {
-
+	// Scanner Instance
 	private Scanner inputConsole = new Scanner(System.in);
-	public int getIntFromScanner(String msg, boolean canBeNull) {
+
+	//Validating inputConsole Type
+	public boolean inputType(String input, String type) {
+		Scanner inputTest = new Scanner(input);
+		boolean result = false;
+		switch (type) {
+		case "Integer":
+			if (inputTest.hasNextInt()) {
+				result = true;
+			} else {
+				System.out.println("Colocar um número Inteiro!");
+			}
+			break;
+		case "Float":
+			if (inputTest.hasNextFloat()) {
+				result = true;
+			} else {
+				System.out.println("Colocar um número Decimal!");
+			}
+			break;
+		
+		default:
+			result = false;
+		}
+		inputTest.close();
+		return result;
+	}
+
+	// Scanner Of Number Long
+	public Long InputLong() {
+		String input;
+		do {
+			input = inputConsole.nextLine();
+			if (input.equals("")) {
+				return null;
+			}
+		} while (!inputType(input, "Integer"));
+		return Long.parseLong(input);
+	}
+	// Scanner Of Number Int, with a defined type of input
+
+	public int InputInt() {
+		String input;
+		do {
+			input = inputConsole.nextLine();
+			if (input.equals("")) {
+				return -1;
+			}
+		} while (!inputType(input, "Integer"));
+		return Integer.parseInt(input);
+	}
+
+	// Menu Scanner
+	public int InputInt(String msg, int[] validOptions) {
 		String input;
 		do {
 			System.out.println(msg);
 			input = inputConsole.nextLine();
-			if (canBeNull && input.equals("")) {
+			if (input.equals("")) {
 				return -1;
 			}
-		} while (!isType(input, "Integer"));
+		} while (!inputType(input, "Integer"));
+
 		return Integer.parseInt(input);
 	}
 	
-	public int getIntFromScanner(String msg) {
-		return getIntFromScanner(msg, false);
+	public int InputInt(int[] validOptions) {
+		return InputInt("O Valor tem de ser:",validOptions);
 	}
 	
-	public int getValidIntFromScanner(String msg, int max, boolean canBeNull) {
+	
+
+	// Scanner Of Number Int, with a Max and EnterKeyScanner
+	public int validInputIntDiscount(int max) {
 		int result;
 		do {
-			result = getIntFromScanner(msg, canBeNull);
+			result = InputInt();
 			if (result > max)
 				System.out.println("O Numero tem de ser menor que " + max);
 		} while (result > max);
 		return result;
 	}
-	
-	public int getValidIntFromScanner(String msg, int max) {
-		return getValidIntFromScanner(msg, max, false);
+
+	// Scanner Of Number Int, with a defined type of input
+	public int validInputIntDiscount(String msg, int max) {
+		return validInputIntDiscount(msg, max);
 	}
-	
-	public int getValidIntFromScanner(String msg, int[] ivas) {
+
+	// Scanner Of Number Int, with a defined type of input
+	public int validInputIntIva(String msg, int[] PossibleIva) {
 		int result;
 		boolean validInt = false;
 		do {
-			result = getIntFromScanner(msg, false);
-			for ( int i : ivas) {
-				if (result == i) {
-					validInt = true;
+			result = InputInt();
+			if (result == -1) {
+				return -1;
+			} else {
+				for (int i : PossibleIva) {
+					if (result == i) {
+						validInt = true;
+					}
 				}
-			}
-			if (!validInt) {
-				String validString = "";
-				for ( int i : ivas) {
-					validString += " " + i;
+				if (!validInt) {
+					String validString = "";
+					for (int i : PossibleIva) {
+						validString += " " + i;
+					}
+					System.out.println("Numero errado tem de ser" + validString);
 				}
-				System.out.println("Numero errado tem de ser" + validString);
 			}
 		} while (!validInt);
 		return result;
 	}
 
-	public float getFloatFromScanner(String msg, boolean canBeNull) {
+
+	// Scanner Of Number Float, with a defined type of input
+	public float validInputFloat(String msg, boolean canBeNull) {
 		String input;
 		do {
 			System.out.println(msg);
@@ -64,43 +129,65 @@ public class ScannerUtils {
 			if (canBeNull && input.equals("")) {
 				return -1;
 			}
-		} while (!isType(input, "Float"));
+		} while (!inputType(input, "Float"));
 		return Float.parseFloat(input);
 	}
+
+	// Scanner Of Number Float
+	public float validInputFloat(String msg) {
+		return validInputFloat(msg, false);
+	}
 	
-	public float getFloatFromScanner(String msg) {
-		return getFloatFromScanner(msg, false);
-	}
-
-	public boolean isType(String input, String type) {
-		switch (type) {
-		case "Integer":
-			try {
-				Integer.parseInt(input);
-				return true;
-			} catch (NumberFormatException e) {
-				System.out.println("Valor errado pff colocar um numero");
-				return false;
-			} catch (NullPointerException e) {
-				System.out.println("Valor errado pff colocar um numero");
-				return false;
-			}
-		case "Float":
-			try {
-				Float.parseFloat(input);
-			} catch (NumberFormatException e) {
-				System.out.println("Valor errado pff colocar um numero");
-				return false;
-			} catch (NullPointerException e) {
-				System.out.println("Valor errado pff colocar um numero");
-				return false;
-			}
-			return true;
-
-		default:
-			return false;
+	
+		
+	//Validating userOption Type
+	public boolean userOptionType(String input) {
+	Scanner inputTest = new Scanner(input);
+	boolean result = false;
+	switch (input) {	
+	case "S":
+	case "s":
+	case "N":
+	case "n":
+		if (inputTest.hasNext()) {
+			result = true;
+		} else {
+			System.out.println("Colocar S ou N!");
 		}
+		break;
+		default:
+			result = false;
+		}
+		inputTest.close();
+		return result;
+	}
+		
+	public boolean userOption(){	
+		String input;
+		boolean userOption = false;
+		do {
+			
+			input = inputConsole.nextLine();
+			if (input.equals("S")  || input.equals("s")) {
+				return userOption = true;
+			}
+			if(input.equals("N") || input.equals("s")) {
+				
+				return userOption = false;
+			}
+			
+		} while (!userOptionType(input));
+	
+		return userOption;
 	}
 
+	
+	public void clearScanner() {
+		Scanner clear = new Scanner(System.in);
+		clear.nextLine();
+	}
 
+	
+
+	
 }

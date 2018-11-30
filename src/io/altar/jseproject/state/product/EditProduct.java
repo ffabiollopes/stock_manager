@@ -6,8 +6,8 @@ public class EditProduct implements State{
 
 	@Override
 	public int execute() {
-		// TODO Auto-generated method stub
-		return 0;
+		System.out.println("edit");
+		return 1;
 	}
 
 }
