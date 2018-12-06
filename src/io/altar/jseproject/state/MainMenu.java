@@ -6,9 +6,7 @@ import io.altar.jseproject.utils.ScannerUtils;
 
 public class MainMenu implements State{
 	public ScannerUtils inputConsole = new ScannerUtils();
-	// Singleton Instance of ProductRepository and shelfRepository
-	public static ShelfRepository shelfRepository = ShelfRepository.getInstance();
-	public static ProductRepository productRepository = ProductRepository.getInstance();
+	
 	@Override
 	public int execute() {
 		int [] validOptions = {1,2,3};

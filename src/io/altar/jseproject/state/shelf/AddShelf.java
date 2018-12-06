@@ -12,35 +12,39 @@ import io.altar.jseproject.utils.ScannerUtils;
 
 public class AddShelf extends ShelfMenu implements State {
 
-	List<Shelf> shelfList = new ArrayList<>();
-	List<Product> produtoList = new ArrayList<>();
-	private int[] optionsCapacity = new int[] { 0, 100 };
+	List<Long> shelfList = new ArrayList<>();
+	List<Product> productList = new ArrayList<>();
+	
 
 	@Override
 	public int execute() {
+		int[] validOptions = new int[] {0,100};
 		System.out.println("\nAdicionar Prateleiras:\n");
-		boolean searchProductId = true;
-		//colocar se quero meter produto
-		System.out.println("1 - Produto que Alberga.");
+		System.out.println("Deseja adicionar algum Produto?S/N");
+		boolean addProductinShelf = false;
+		addProductinShelf = inputConsole.userOption();
+		System.out.println("1 - Produto que deseja adicionar.");
 		Long id = inputConsole.InputLong();
-		do {
-			if (productRepository.findById(id) == null) {
-				System.out.println("Não existe nenhum produto com esse Id.");
-				System.out.println("Deseja procurar outro Produto?");
-				searchProductId = inputConsole.userOption();
-			}
-		} while (searchProductId == true);
-		System.out.println("1- Capacidade da Prateleira.");
-		//este scanner esta mal
-		int EmptyFull = inputConsole.InputInt(optionsCapacity);
+		if (addProductinShelf == true) {
+			boolean searchProductId = true;
+			do {
+				if (productRepository.findById(id) == null) {
+					System.out.println("Não existe nenhum produto com esse Id.");
+					System.out.println("Deseja procurar outro Produto?S/N");
+					searchProductId = inputConsole.userOption();
+				}
+			} while (searchProductId == true);
+		}
+		System.out.println("2 - Capacidade da Prateleira.");
+		int EmptyFull = inputConsole.InputCapacity(validOptions);	
 		System.out.println("3 - Preco de aluguer de localizacao diario");
 		int rentPricePerDay = inputConsole.InputInt();
 		Shelf shelf = new Shelf(EmptyFull, rentPricePerDay);
-//		shelf.addProduct(produtoList);
+		shelf.setProduct(productList);
 		shelfRepository.save(shelf);
-		shelfList.add(shelf);		
+		shelfList.add(shelf.getId());
 //		productRepository.findById(id).addShelves(shelfList);
-		
+
 		// Return to state 1
 		return 1;
 	}
