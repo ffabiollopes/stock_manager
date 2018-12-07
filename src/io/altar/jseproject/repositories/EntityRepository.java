@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import io.altar.jseproject.model.Entity;
 
+
 	//Generics Use
 public abstract class EntityRepository<T extends Entity> {
 	
@@ -18,7 +19,7 @@ public abstract class EntityRepository<T extends Entity> {
 		map.put(entity.getId(), entity);
 		actualId++;
 	}
-	
+
 	//Method to save a shelf on Product creation
 	public void saveMyId(T entity, Long id) {
 		entity.setId(id);

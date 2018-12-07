@@ -16,8 +16,10 @@ public class SearchShelf extends AddShelf implements State{
 				System.out.println("Deseja procurar outro prateleira? S/N");
 				searchShelfId = inputConsole.userOption();
 			}
+			else {
 			System.out.println(shelfRepository.findById(id));
-			break;
+			searchShelfId = false;
+			}
 		} while (searchShelfId == true);
 		
 		return 1;
