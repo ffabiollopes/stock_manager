@@ -10,8 +10,8 @@ public class ProductMenu extends MainMenu implements State {
 		System.out.println("2 - Editar um produto existente.");
 		System.out.println("3 - Consultar o detalhe de um produto.");
 		System.out.println("4 - Remover um produto.");
-		System.out.println("5 - Voltar ao ecrã anterior.\n");
-		return inputConsole.InputInt("Por favor selecione uma das opções: ", validOptions);
+		System.out.println("5 - Voltar ao ecrï¿½ anterior.\n");
+		return inputConsole.InputInt(validOptions);
 	}
 
 }

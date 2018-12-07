@@ -15,14 +15,14 @@ public class ScannerUtils {
 			if (inputTest.hasNextInt()) {
 				result = true;
 			} else {
-				System.out.println("Colocar um número Inteiro!");
+				System.out.println("Colocar um nï¿½mero Inteiro!");
 			}
 			break;
 		case "Float":
 			if (inputTest.hasNextFloat()) {
 				result = true;
 			} else {
-				System.out.println("Colocar um número Decimal!");
+				System.out.println("Colocar um nï¿½mero Decimal!");
 			}
 			break;
 
@@ -54,19 +54,37 @@ public class ScannerUtils {
 		} while (!inputType(input, "Integer"));
 		return Integer.parseInt(input);
 	}
-	// Menu Scanner
-	public int InputInt(String msg, int[] validOptions) {
-		String input;
-		do {
-			System.out.println(msg);
-			input = inputConsole.nextLine();
-			if (input.equals("")) {
-				return -1;
-			}
-		} while (!inputType(input, "Integer"));
-
-		return Integer.parseInt(input);
-	}
+//	// Menu Scanner
+//	public int InputInt(String msg, int[] validOptions) {
+//		String input;
+//		do {
+//			System.out.println(msg);
+//			input = inputConsole.nextLine();
+//			if (input.equals("")) {
+//				return -1;
+//			}
+//		} while (!inputType(input, "Integer"));
+//
+//		return Integer.parseInt(input);
+//	}
+	// Menu  scanner
+		public int InputInt(int[] validOptions) {
+			int input;
+			boolean validInt = false;
+			do {
+				input = InputInt();
+					for (int i : validOptions) {
+						if (input == i) {
+							validInt = true;
+						}
+					}
+					if (!validInt) {
+						String validString = Arrays.toString(validOptions);
+						System.out.println("Por Favor Selecione as seguintes opcoes:" + validString);
+					}
+			} while (!validInt);
+			return input;
+		}
 	// Shelf Capacity scanner
 	public int InputCapacity(int[] validOptions) {
 		int input;
@@ -192,5 +210,7 @@ public class ScannerUtils {
 		Scanner clear = new Scanner(System.in);
 		clear.nextLine();
 	}
+	
+	
 
 }

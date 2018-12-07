@@ -8,6 +8,7 @@ public class AddProduct implements State{
 	public int execute() {
 		
 		System.out.println("add");
+		// Return to state 1
 		return 1;
 	}
 }

@@ -14,7 +14,7 @@ public class ShelfMenu extends MainMenu implements State{
 		System.out.println("3 - Consultar o detalhe de uma prateleira.");
 		System.out.println("4 - Remover uma prateleira.");
 		System.out.println("5 - Voltar ao ecra anterior.\n");
-		return inputConsole.InputInt("Por favor selecione uma das opções: ", validOptions);
+		return inputConsole.InputInt(validOptions);
 	}
 
 }
