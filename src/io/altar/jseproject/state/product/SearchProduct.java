@@ -7,9 +7,21 @@ public class SearchProduct extends ProductMenu implements State{
 
 	@Override
 	public int execute() {
-		System.out.println("Digite o id do produto a consultar:");
-		Long id = inputConsole.InputLong();
-		System.out.println(productRepository.findById(id);
+		boolean searchProductById = true;
+		do {
+			System.out.println("Digite o id do Produto a consultar");
+			Long id = inputConsole.InputLong();
+			if (productRepository.findById(id) == null) {
+				System.out.println("Não existe nenhum Produto com esse Id.");
+				System.out.println("Deseja procurar outro Produto? S/N");
+				searchProductById = inputConsole.userOption();
+			}
+			else {
+			System.out.println(productRepository.findById(id));
+			searchProductById = false;
+			}
+		} while (searchProductById == true);
+		
 		return 1;
 	}
 

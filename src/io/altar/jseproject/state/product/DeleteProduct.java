@@ -13,7 +13,7 @@ public class DeleteProduct extends ProductMenu implements State{
 			Long id = inputConsole.InputLong();
 			if (productRepository.findById(id) == null) {
 				System.out.println("Não existe nenhum produto com esse Id.");
-				System.out.println("Deseja procurar outro produto?");
+				System.out.println("Deseja procurar outro produto?S/N");
 				searchShelfId = inputConsole.userOption();
 			}
 			else {

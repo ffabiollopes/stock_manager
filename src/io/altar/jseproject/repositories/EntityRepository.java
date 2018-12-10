@@ -3,8 +3,6 @@ package io.altar.jseproject.repositories;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Scanner;
-
 import io.altar.jseproject.model.Entity;
 
 
@@ -14,24 +12,7 @@ public abstract class EntityRepository<T extends Entity> {
 	//initialize variables
 	private long actualId = 0;
 	private Map<Long, T> map = new HashMap<Long, T>();
-	
-	final public EntityRepository<T>   addMore(boolean add, T entity, Scanner scanner) {
-		boolean searchProductId = true;
-		while (add == true && searchProductId == true) {
-			System.out.println("1 - Produto que deseja adicionar.");
-			Long id = inputConsole.InputLong();
-				if (entity.findById(id) == null) {
-					System.out.println("N�o existe nenhum produto com esse Id.");
-					System.out.println("Deseja procurar outro Produto?S/N");
-					searchProductId = inputConsole.userOption();
-				} else {
-					productList.add(entity.findById(id));
-					searchProductId = false;
-				}
-			}
-		return entity.findById(id);
-	}
-	
+		
 	//Method to create Products/Shelves and give an automatic id
 	public void save(T entity) {
 		entity.setId(actualId);

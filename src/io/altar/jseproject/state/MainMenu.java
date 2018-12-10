@@ -1,7 +1,6 @@
 package io.altar.jseproject.state;
 
-import io.altar.jseproject.repositories.ProductRepository;
-import io.altar.jseproject.repositories.ShelfRepository;
+
 import io.altar.jseproject.utils.ScannerUtils;
 
 public class MainMenu implements State{

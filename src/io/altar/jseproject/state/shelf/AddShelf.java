@@ -11,40 +11,38 @@ import io.altar.jseproject.state.State;
 
 public class AddShelf extends ShelfMenu implements State {
 
-	List<Long> shelfList = new ArrayList<>();
+	List<Shelf> shelfList = new ArrayList<>();
 	List<Product> productList = new ArrayList<>();
 
-	// tornar isto generic
-	final public Product addMore(boolean add) {
+	public Product addMore(boolean add) {
 		boolean searchProductId = true;
+		Product product = null;
 		while (add == true && searchProductId == true) {
 			System.out.println("1 - Produto que deseja adicionar.");
 			Long id = inputConsole.InputLong();
-			if (productRepository.findById(id) == null) {
-				System.out.println("N�o existe nenhum produto com esse Id.");
+			if (productRepository.findById(id) != null) {
+				product = productRepository.findById(id);
+				searchProductId = false;
+			} else {
+				System.out.println("Nao existe nenhum produto com esse Id.");
 				System.out.println("Deseja procurar outro Produto?S/N");
 				searchProductId = inputConsole.userOption();
-			} else {
-				productList.add(productRepository.findById(id));
-				searchProductId = false;
 			}
 		}
-		return productRepository.findById(id);
+		return product;
 	}
-
-	Long id;
 
 	@Override
 	public int execute() {
-
+		Product product = null;
 		boolean addProductinShelf = false;
 		int EmptyFull;
 		System.out.println("\nAdicionar Prateleiras:\n");
 		System.out.println("Deseja adicionar algum Produto?S/N");
 		addProductinShelf = inputConsole.userOption();
-		addMore(addProductinShelf);
+		product = addMore(addProductinShelf);
 		// Automatic Shelf capacity
-		if (id == null) {
+		if (product == null) {
 			EmptyFull = 0;
 		} else {
 			EmptyFull = 100;
@@ -52,16 +50,18 @@ public class AddShelf extends ShelfMenu implements State {
 		System.out.println("2 - Preco de aluguer de localizacao diario");
 		int rentPricePerDay = inputConsole.InputInt();
 		Shelf shelf = new Shelf(EmptyFull, rentPricePerDay);
-		shelf.setProduct(productList);
-		shelfRepository.save(shelf);
-		if (id != null) {
-			shelfList.add(shelf.getId());
-			productRepository.findById(id).addShelves(shelfList);
-			System.out.println("funciona");
+		if (product != null) {
+			productList.add(product);
+			shelf.setProduct(productList);
+			shelfRepository.save(shelf);
+			shelfList.add(shelf);
+			productRepository.findById(product.getId()).addShelves(shelfList);
 		}
-		System.out.println(shelfRepository.getAll().toString());
+		else {
+			shelfRepository.save(shelf);
+		}
+		System.out.println(shelf.toString());
 		// Return to state 1
 		return 1;
 	}
-
 }

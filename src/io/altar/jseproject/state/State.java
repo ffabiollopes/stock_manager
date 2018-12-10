@@ -1,6 +1,5 @@
 package io.altar.jseproject.state;
 
-import java.util.Scanner;
 
 import io.altar.jseproject.repositories.ProductRepository;
 import io.altar.jseproject.repositories.ShelfRepository;

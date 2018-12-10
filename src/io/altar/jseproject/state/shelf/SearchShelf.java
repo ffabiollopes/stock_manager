@@ -13,7 +13,7 @@ public class SearchShelf extends AddShelf implements State{
 			Long id = inputConsole.InputLong();
 			if (shelfRepository.findById(id) == null) {
 				System.out.println("Não existe nenhuma prateleira com esse Id.");
-				System.out.println("Deseja procurar outro prateleira? S/N");
+				System.out.println("Deseja procurar outra prateleira? S/N");
 				searchShelfId = inputConsole.userOption();
 			}
 			else {

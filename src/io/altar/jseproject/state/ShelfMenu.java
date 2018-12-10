@@ -1,9 +1,7 @@
 package io.altar.jseproject.state;
 
 public class ShelfMenu extends MainMenu implements State{
-	// Singleton Instance of ShelfRepository
-	
-	
+
 	@Override
 	public int execute() {
 		
